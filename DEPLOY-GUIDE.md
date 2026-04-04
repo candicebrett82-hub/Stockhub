@@ -159,3 +159,5 @@ Once the client has seen StockHub working:
 4. **Custom domain** — point your own domain (e.g. stock.aztek.co.uk) at Vercel
 
 All of these are straightforward additions to what you've already deployed.
+
+
