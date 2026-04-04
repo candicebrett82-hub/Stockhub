@@ -56,56 +56,55 @@ function useStore(key, fallback) {
   return [data, save, ready];
 }
 
-// Demo products (Aztek stock)
+// 47 products from AZTEK_STOCK_SHEET_2026.xlsx (as at 31 March 2026)
 const D_PROD = [
-  {id:"p1",sku:"DUCOFLEX D63 300M",name:"DUCOFLEX D63 300M",category:"Ducting",costPrice:0,salePrice:0,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p2",sku:"BRC073A1",name:"BRC073A1",category:"Controls",costPrice:80.92,salePrice:109.24,reorderLevel:2,totalQty:8,availableQty:8},
-  {id:"p3",sku:"BRC1E53A7",name:"BRC1E53A7",category:"Controls",costPrice:84.32,salePrice:113.83,reorderLevel:2,totalQty:5,availableQty:5},
-  {id:"p4",sku:"BRC1H52W",name:"BRC1H52W",category:"Controls",costPrice:79.46,salePrice:107.27,reorderLevel:2,totalQty:18,availableQty:16},
-  {id:"p5",sku:"BRC7EA628",name:"BRC7EA628",category:"Controls",costPrice:135.32,salePrice:182.68,reorderLevel:2,totalQty:3,availableQty:2},
-  {id:"p6",sku:"BRP069B45",name:"BRP069B45",category:"Parts",costPrice:47.16,salePrice:63.67,reorderLevel:2,totalQty:4,availableQty:4},
-  {id:"p7",sku:"BRCW901A03",name:"BRCW901A03",category:"Controls",costPrice:11.56,salePrice:15.61,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p8",sku:"BS4A14AV1B",name:"BS4A14AV1B",category:"Outdoor Units",costPrice:2022.32,salePrice:2730.13,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p9",sku:"EKRS21",name:"EKRS21",category:"Parts",costPrice:5.82,salePrice:7.86,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p10",sku:"KRP928BB2S",name:"KRP928BB2S",category:"Parts",costPrice:43.52,salePrice:58.75,reorderLevel:2,totalQty:2,availableQty:1},
-  {id:"p11",sku:"KRP413BB1S",name:"KRP413BB1S",category:"Parts",costPrice:78.88,salePrice:106.49,reorderLevel:2,totalQty:5,availableQty:5},
-  {id:"p12",sku:"EKAFVJ100F7",name:"EKAFVJ100F7",category:"Parts",costPrice:157.08,salePrice:212.06,reorderLevel:2,totalQty:4,availableQty:4},
-  {id:"p13",sku:"2MXM68A2V1B9",name:"2MXM68A2V1B9",category:"Outdoor Units",costPrice:1371.56,salePrice:1851.61,reorderLevel:2,totalQty:1,availableQty:0},
-  {id:"p14",sku:"3MXM52A2V1B9",name:"3MXM52A2V1B9",category:"Outdoor Units",costPrice:1197.48,salePrice:1616.60,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p15",sku:"4MXM68A2V1B",name:"4MXM68A2V1B",category:"Outdoor Units",costPrice:2058.36,salePrice:2778.79,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p16",sku:"5MXM90A",name:"5MXM90A",category:"Outdoor Units",costPrice:2085.76,salePrice:2815.78,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p17",sku:"ARXM71A",name:"ARXM71A",category:"Outdoor Units",costPrice:696.96,salePrice:940.90,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p18",sku:"AZAS100MV1",name:"AZAS100MV1",category:"Outdoor Units",costPrice:856.03,salePrice:1155.64,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p19",sku:"CTXM15A",name:"CTXM15A",category:"Indoor Units",costPrice:138.72,salePrice:187.27,reorderLevel:2,totalQty:3,availableQty:3},
-  {id:"p20",sku:"FAA100B",name:"FAA100B",category:"Indoor Units",costPrice:714.88,salePrice:965.09,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p21",sku:"FAA71B",name:"FAA71B",category:"Indoor Units",costPrice:656.00,salePrice:885.60,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p22",sku:"FTXA35C2V1BB",name:"FTXA35C2V1BB",category:"Indoor Units",costPrice:346.90,salePrice:468.31,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p23",sku:"FTXA50C2V1BW",name:"FTXA50C2V1BW",category:"Indoor Units",costPrice:435.50,salePrice:587.93,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p24",sku:"FTXP25N5V1B",name:"FTXP25N5V1B",category:"Indoor Units",costPrice:113.28,salePrice:152.93,reorderLevel:2,totalQty:3,availableQty:3},
-  {id:"p25",sku:"FTXP35N5V1B9",name:"FTXP35N5V1B9",category:"Indoor Units",costPrice:127.36,salePrice:171.94,reorderLevel:2,totalQty:2,availableQty:0},
-  {id:"p26",sku:"FTXP50N5V1B9",name:"FTXP50N5V1B9",category:"Indoor Units",costPrice:206.72,salePrice:279.07,reorderLevel:2,totalQty:3,availableQty:3},
-  {id:"p27",sku:"FTXM25R2V1B",name:"FTXM25R2V1B",category:"Indoor Units",costPrice:146.64,salePrice:197.96,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p28",sku:"FTXM35A2V1B",name:"FTXM35A2V1B",category:"Indoor Units",costPrice:170.88,salePrice:230.69,reorderLevel:2,totalQty:1,availableQty:0},
-  {id:"p29",sku:"FDXM35F3V1B9",name:"FDXM35F3V1B9",category:"Indoor Units",costPrice:357.12,salePrice:482.11,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p30",sku:"FDXM50F3V1B9",name:"FDXM50F3V1B9",category:"Indoor Units",costPrice:392.96,salePrice:530.50,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p31",sku:"RXM35A5V1B9",name:"RXM35A5V1B9",category:"Outdoor Units",costPrice:501.94,salePrice:677.62,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p32",sku:"RXP25N5V1B9",name:"RXP25N5V1B9",category:"Outdoor Units",costPrice:321.92,salePrice:434.59,reorderLevel:2,totalQty:3,availableQty:3},
-  {id:"p33",sku:"RXP35N5V1B9",name:"RXP35N5V1B9",category:"Outdoor Units",costPrice:373.76,salePrice:504.58,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p34",sku:"RXP50N8",name:"RXP50N8",category:"Outdoor Units",costPrice:486.40,salePrice:656.64,reorderLevel:2,totalQty:3,availableQty:3},
-  {id:"p35",sku:"RZAG35B5V1B",name:"RZAG35B5V1B",category:"Outdoor Units",costPrice:734.72,salePrice:991.87,reorderLevel:2,totalQty:2,availableQty:1},
-  {id:"p36",sku:"RZAG50B5V1B",name:"RZAG50B5V1B",category:"Outdoor Units",costPrice:896.64,salePrice:1210.46,reorderLevel:2,totalQty:2,availableQty:2},
-  {id:"p37",sku:"MC55VBFVM7",name:"MC55VBFVM7",category:"Parts",costPrice:229.16,salePrice:309.37,reorderLevel:2,totalQty:5,availableQty:5},
-  {id:"p38",sku:"KHRQ23M75T8",name:"KHRQ23M75T8",category:"Parts",costPrice:70.85,salePrice:95.65,reorderLevel:2,totalQty:5,availableQty:5},
-  {id:"p39",sku:"KHRQ23M64T",name:"KHRQ23M64T",category:"Parts",costPrice:55.90,salePrice:75.47,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p40",sku:"KHRQ23M20T",name:"KHRQ23M20T",category:"Parts",costPrice:40.80,salePrice:55.08,reorderLevel:2,totalQty:5,availableQty:5},
-  {id:"p41",sku:"KHRQ22M20T8",name:"KHRQ22M20T8",category:"Parts",costPrice:25.84,salePrice:34.88,reorderLevel:2,totalQty:2,availableQty:0},
-  {id:"p42",sku:"DMS502B51",name:"DMS502B51",category:"Outdoor Units",costPrice:1133.56,salePrice:1530.31,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p43",sku:"DCM601B51",name:"DCM601B51",category:"Outdoor Units",costPrice:2340.56,salePrice:3159.76,reorderLevel:2,totalQty:1,availableQty:1},
-  {id:"p44",sku:"AZAI16WSCDK1",name:"AZAI16WSCDK1",category:"Parts",costPrice:195.84,salePrice:264.38,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p45",sku:"5035698",name:"5035698",category:"Parts",costPrice:23.03,salePrice:31.09,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p46",sku:"BRYQ140C8",name:"BRYQ140C8",category:"Parts",costPrice:102.00,salePrice:137.70,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p47",sku:"4016600",name:"4016600 - Fan Motor",category:"Parts",costPrice:596.05,salePrice:804.67,reorderLevel:2,totalQty:0,availableQty:0},
-  {id:"p48",sku:"KHRQ23M64T8",name:"KHRQ23M64T8",category:"Parts",costPrice:55.90,salePrice:75.47,reorderLevel:2,totalQty:7,availableQty:7},
+  {id:"p1",sku:"DMS502B51",name:"DMS502B51",category:"Controls",costPrice:1133.56,salePrice:1530.31,totalQty:1,availableQty:1},
+  {id:"p2",sku:"DCM601B51",name:"DCM601B51",category:"Controls",costPrice:2340.56,salePrice:3159.76,totalQty:1,availableQty:0},
+  {id:"p3",sku:"BRC073A1",name:"BRC073A1",category:"Controls",costPrice:80.92,salePrice:109.24,totalQty:7,availableQty:7},
+  {id:"p4",sku:"BRC1E53A7",name:"BRC1E53A7",category:"Controls",costPrice:84.32,salePrice:113.83,totalQty:5,availableQty:5},
+  {id:"p5",sku:"BRC1H52W",name:"BRC1H52W",category:"Controls",costPrice:79.46,salePrice:107.27,totalQty:11,availableQty:11},
+  {id:"p6",sku:"BRC7EA628",name:"BRC7EA628",category:"Controls",costPrice:135.32,salePrice:182.68,totalQty:2,availableQty:2},
+  {id:"p7",sku:"BRP069B45",name:"BRP069B45",category:"Controls",costPrice:47.16,salePrice:63.67,totalQty:4,availableQty:4},
+  {id:"p8",sku:"BRCW901A03",name:"BRCW901A03",category:"Controls",costPrice:11.56,salePrice:15.61,totalQty:1,availableQty:1},
+  {id:"p9",sku:"EKRS21",name:"EKRS21",category:"Controls",costPrice:5.82,salePrice:7.86,totalQty:0,availableQty:0},
+  {id:"p10",sku:"KRP928BB2S",name:"KRP928BB2S",category:"Controls",costPrice:43.52,salePrice:58.75,totalQty:2,availableQty:2},
+  {id:"p11",sku:"KRP413BB1S",name:"KRP413BB1S",category:"Controls",costPrice:78.88,salePrice:106.49,totalQty:1,availableQty:1},
+  {id:"p12",sku:"EKAFVJ100F7",name:"EKAFVJ100F7",category:"Controls",costPrice:157.08,salePrice:212.06,totalQty:4,availableQty:4},
+  {id:"p13",sku:"2MXM68A2V1B9",name:"2MXM68A2V1B9",category:"Outdoor Units",costPrice:1371.56,salePrice:1851.61,totalQty:0,availableQty:0},
+  {id:"p14",sku:"3MXM52A2V1B9",name:"3MXM52A2V1B9",category:"Outdoor Units",costPrice:1197.48,salePrice:1616.6,totalQty:0,availableQty:0},
+  {id:"p15",sku:"4MXM68A2V1B",name:"4MXM68A2V1B",category:"Outdoor Units",costPrice:2058.36,salePrice:2778.79,totalQty:0,availableQty:0},
+  {id:"p16",sku:"5MXM90A",name:"5MXM90A",category:"Outdoor Units",costPrice:2085.76,salePrice:2815.78,totalQty:1,availableQty:1},
+  {id:"p17",sku:"ARXM71A",name:"ARXM71A",category:"Outdoor Units",costPrice:696.96,salePrice:940.9,totalQty:2,availableQty:2},
+  {id:"p18",sku:"AZAS100MV1",name:"AZAS100MV1",category:"Outdoor Units",costPrice:856.03,salePrice:1155.64,totalQty:0,availableQty:0},
+  {id:"p19",sku:"RXM35A5V1B9",name:"RXM35A5V1B9",category:"Outdoor Units",costPrice:501.94,salePrice:677.62,totalQty:0,availableQty:0},
+  {id:"p20",sku:"RXP25N5V1B9",name:"RXP25N5V1B9",category:"Outdoor Units",costPrice:321.92,salePrice:434.59,totalQty:3,availableQty:3},
+  {id:"p21",sku:"RXP35N5V1B9",name:"RXP35N5V1B9",category:"Outdoor Units",costPrice:373.76,salePrice:504.58,totalQty:2,availableQty:2},
+  {id:"p22",sku:"RXP50N8",name:"RXP50N8",category:"Outdoor Units",costPrice:486.4,salePrice:656.64,totalQty:2,availableQty:2},
+  {id:"p23",sku:"RZAG35B5V1B",name:"RZAG35B5V1B",category:"Outdoor Units",costPrice:734.72,salePrice:991.87,totalQty:0,availableQty:0},
+  {id:"p24",sku:"RZAG50B5V1B",name:"RZAG50B5V1B",category:"Outdoor Units",costPrice:896.64,salePrice:1210.46,totalQty:2,availableQty:2},
+  {id:"p25",sku:"CTXM15A",name:"CTXM15A",category:"Indoor Units",costPrice:138.72,salePrice:187.27,totalQty:3,availableQty:3},
+  {id:"p26",sku:"FAA100B",name:"FAA100B",category:"Indoor Units",costPrice:714.88,salePrice:965.09,totalQty:0,availableQty:0},
+  {id:"p27",sku:"FAA71B",name:"FAA71B",category:"Indoor Units",costPrice:656.0,salePrice:885.6,totalQty:2,availableQty:2},
+  {id:"p28",sku:"FTXA35C2V1BB",name:"FTXA35C2V1BB",category:"Indoor Units",costPrice:346.9,salePrice:468.31,totalQty:1,availableQty:1},
+  {id:"p29",sku:"FTXA50C2V1BW",name:"FTXA50C2V1BW",category:"Indoor Units",costPrice:435.5,salePrice:587.93,totalQty:1,availableQty:1},
+  {id:"p30",sku:"FTXF25F52U1B",name:"FTXF25F52U1B",category:"Indoor Units",costPrice:88.4,salePrice:119.34,totalQty:1,availableQty:1},
+  {id:"p31",sku:"FTXP25N5V1B",name:"FTXP25N5V1B",category:"Indoor Units",costPrice:113.28,salePrice:152.93,totalQty:3,availableQty:2},
+  {id:"p32",sku:"FTXP35N5V1B9",name:"FTXP35N5V1B9",category:"Indoor Units",costPrice:127.36,salePrice:171.94,totalQty:0,availableQty:0},
+  {id:"p33",sku:"FTXP50N5V1B9",name:"FTXP50N5V1B9",category:"Indoor Units",costPrice:206.72,salePrice:279.07,totalQty:3,availableQty:3},
+  {id:"p34",sku:"FTXM25R2V1B",name:"FTXM25R2V1B",category:"Indoor Units",costPrice:146.64,salePrice:197.96,totalQty:0,availableQty:0},
+  {id:"p35",sku:"FTXM35A2V1B",name:"FTXM35A2V1B",category:"Indoor Units",costPrice:170.88,salePrice:230.69,totalQty:0,availableQty:0},
+  {id:"p36",sku:"FDXM35F3V1B9",name:"FDXM35F3V1B9",category:"Indoor Units",costPrice:357.12,salePrice:482.11,totalQty:2,availableQty:2},
+  {id:"p37",sku:"FDXM50F3V1B9",name:"FDXM50F3V1B9",category:"Indoor Units",costPrice:392.96,salePrice:530.5,totalQty:1,availableQty:0},
+  {id:"p38",sku:"MC55VBFVM7",name:"MC55VBFVM7",category:"Indoor Units",costPrice:229.16,salePrice:309.37,totalQty:5,availableQty:5},
+  {id:"p39",sku:"KHRQ23M75T8",name:"KHRQ23M75T8",category:"Parts",costPrice:70.85,salePrice:95.65,totalQty:5,availableQty:5},
+  {id:"p40",sku:"KHRQ23M64T",name:"KHRQ23M64T",category:"Parts",costPrice:55.9,salePrice:75.47,totalQty:1,availableQty:1},
+  {id:"p41",sku:"KHRQ23M20T",name:"KHRQ23M20T",category:"Parts",costPrice:40.8,salePrice:55.08,totalQty:0,availableQty:0},
+  {id:"p42",sku:"KHRQ22M20T8",name:"KHRQ22M20T8",category:"Parts",costPrice:25.84,salePrice:34.88,totalQty:0,availableQty:0},
+  {id:"p43",sku:"KHRQ23M64T8",name:"KHRQ23M64T8",category:"Parts",costPrice:55.9,salePrice:75.47,totalQty:0,availableQty:0},
+  {id:"p44",sku:"BS4A14AV1B",name:"BS4A14AV1B",category:"Outdoor Units",costPrice:1624.46,salePrice:2193.02,totalQty:1,availableQty:1},
+  {id:"p45",sku:"AZAI16WSCDK1",name:"AZAI16WSCDK1",category:"Parts",costPrice:195.84,salePrice:264.38,totalQty:0,availableQty:0},
+  {id:"p46",sku:"5035698",name:"5035698",category:"Parts",costPrice:23.03,salePrice:31.09,totalQty:0,availableQty:0},
+  {id:"p47",sku:"4016600 - Fan Motor",name:"4016600 - Fan Motor",category:"Parts",costPrice:596.05,salePrice:804.67,totalQty:1,availableQty:1},
 ];
 
 // ══════════════════════════════════════════════════════════════
@@ -183,6 +182,97 @@ export default function App() {
   };
 
   const resetAll = async () => { await setProd(D_PROD); await setSer([]); await setGI([]); await setDisp([]); flash("Reset"); };
+
+  const [syncing, setSyncing] = useState(false);
+  const syncFromQW = async (type) => {
+    setSyncing(true);
+    try {
+      const apiType = type === "dispatches" ? "invoices" : "pos";
+      const res = await fetch(`/api/qw-sync?type=${apiType}&since=2026-04-01`);
+      const json = await res.json();
+      if (!json.success) { flash("Sync error: " + (json.error || "Unknown")); setSyncing(false); return; }
+
+      if (type === "dispatches") {
+        const docs = json.invoices || [];
+        const existing = dispatches.map(d => d.qwRef).filter(Boolean);
+        const newDocs = docs.filter(d => !existing.includes(d.qwRef));
+        if (newDocs.length === 0) { flash("No new dispatches found"); setSyncing(false); return; }
+
+        const newDispatches = newDocs.map(d => ({
+          id: uid(), customer: d.customer, qwRef: d.qwRef, date: d.date, importedDate: today(),
+          items: d.items.map(i => ({ sku: i.sku, serial: i.serial, qty: i.qty }))
+        }));
+        setDisp(prev => [...prev, ...newDispatches]);
+
+        // Mark serials as dispatched and deduct stock
+        const allSerials = newDocs.flatMap(d => d.items.filter(i => i.serial).map(i => ({ serial: i.serial, customer: d.customer, qwRef: d.qwRef })));
+        if (allSerials.length > 0) {
+          setSer(prev => prev.map(s => {
+            const match = allSerials.find(a => a.serial === s.serial);
+            return match ? { ...s, status: "dispatched", customer: match.customer, qwRef: match.qwRef, dispatchDate: today() } : s;
+          }));
+        }
+        const stockDeductions = {};
+        newDocs.forEach(d => d.items.forEach(i => {
+          const prod = products.find(p => p.sku === i.sku);
+          if (prod) stockDeductions[prod.id] = (stockDeductions[prod.id] || 0) + (i.qty || 1);
+        }));
+        setProd(prev => prev.map(p => stockDeductions[p.id] ? { ...p, totalQty: Math.max(0, (p.totalQty || 0) - stockDeductions[p.id]), availableQty: Math.max(0, (p.availableQty || 0) - stockDeductions[p.id]) } : p));
+
+        flash(`${newDispatches.length} new dispatch${newDispatches.length !== 1 ? "es" : ""} synced from QW`);
+      }
+
+      if (type === "goodsin") {
+        const docs = json.purchaseOrders || [];
+        const existing = goodsIn.map(g => g.supplierRef).filter(Boolean);
+        const newDocs = docs.filter(d => !existing.includes(d.qwRef));
+        if (newDocs.length === 0) { flash("No new goods-in found"); setSyncing(false); return; }
+
+        const newGoodsIn = newDocs.map(d => {
+          const supplierName = d.items[0]?.manufacturer || d.items[0]?.vendor || d.supplier || "Unknown";
+          return {
+            id: uid(), supplier: supplierName, supplierRef: d.qwRef, created: d.date, status: "received", receivedDate: today(), notes: "Synced from QuoteWerks",
+            items: d.items.map(i => {
+              const prod = products.find(p => p.sku === i.sku);
+              return { productId: prod?.id || "", qty: i.qty || 1, unitCost: i.unitCost || 0 };
+            })
+          };
+        });
+        setGI(prev => [...prev, ...newGoodsIn]);
+
+        // Register serials and increase stock
+        newDocs.forEach(d => {
+          d.items.forEach(i => {
+            if (i.serial) {
+              const prod = products.find(p => p.sku === i.sku);
+              if (prod) addSer(prod.id, i.serial);
+            }
+          });
+        });
+        const stockAdditions = {};
+        const costByProd = {};
+        newDocs.forEach(d => d.items.forEach(i => {
+          const prod = products.find(p => p.sku === i.sku);
+          if (prod) {
+            stockAdditions[prod.id] = (stockAdditions[prod.id] || 0) + (i.qty || 1);
+            costByProd[prod.id] = i.unitCost || 0;
+          }
+        }));
+        setProd(prev => prev.map(p => {
+          if (!stockAdditions[p.id]) return p;
+          const add = stockAdditions[p.id], nc = costByProd[p.id];
+          const hist = [...(p.costHistory || []), { date: today(), cost: nc, supplier: "QW Sync", qty: add, ref: "" }];
+          return { ...p, totalQty: (p.totalQty || 0) + add, availableQty: (p.availableQty || 0) + add, costPrice: nc > 0 ? nc : p.costPrice, lastCostDate: today(), lastCostSupplier: "QW Sync", costHistory: hist };
+        }));
+
+        flash(`${newGoodsIn.length} new goods-in synced from QW`);
+      }
+    } catch (err) {
+      console.error("Sync error:", err);
+      flash("Sync failed \u2014 check connection");
+    }
+    setSyncing(false);
+  };
 
   const nav = [
     { k: "dashboard", l: "Dashboard", i: "\u25D0" },
@@ -279,8 +369,11 @@ export default function App() {
       return (
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-            <div><h1 style={{ fontSize: 22, fontWeight: 700 }}>Goods In</h1><p style={{ color: T.muted, fontSize: 12, marginTop: 2 }}>Record stock arriving at the warehouse</p></div>
-            <button style={bp} onClick={() => setModal({ type: "editGI", data: null })}>+ Record Goods In</button>
+            <div><h1 style={{ fontSize: 22, fontWeight: 700 }}>Goods In</h1><p style={{ color: T.muted, fontSize: 12, marginTop: 2 }}>Stock received from suppliers</p></div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button style={bp} onClick={() => syncFromQW("goodsin")}>{"\u21BB"} Sync from QW</button>
+              <button style={bs} onClick={() => setModal({ type: "editGI", data: null })}>+ Manual Entry</button>
+            </div>
           </div>
           <input placeholder="Search supplier..." value={search} onChange={e => setSearch(e.target.value)} style={{ ...iS, marginBottom: 14 }} />
           {renderTable(["Date", "Supplier", "Ref", "Items", "Cost", "Status", ""], fil.map(g => { const tot = g.items.reduce((s, i) => s + (i.qty || 1) * (i.unitCost || 0), 0); return (
@@ -302,8 +395,11 @@ export default function App() {
       return (
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-            <div><h1 style={{ fontSize: 22, fontWeight: 700 }}>Goods Out</h1><p style={{ color: T.muted, fontSize: 12, marginTop: 2 }}>Dispatches imported from QuoteWerks</p></div>
-            <button style={bp} onClick={() => setModal({ type: "importDispatches" })}>{"\u2191"} Import from QW</button>
+            <div><h1 style={{ fontSize: 22, fontWeight: 700 }}>Goods Out</h1><p style={{ color: T.muted, fontSize: 12, marginTop: 2 }}>Dispatches from QuoteWerks</p></div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button style={bp} onClick={() => syncFromQW("dispatches")}>{"\u21BB"} Sync from QW</button>
+              <button style={bs} onClick={() => setModal({ type: "importDispatches" })}>{"\u2191"} CSV Import</button>
+            </div>
           </div>
           <input placeholder="Search customer, QW ref..." value={search} onChange={e => setSearch(e.target.value)} style={{ ...iS, marginBottom: 14 }} />
           {renderTable(["Date", "Customer", "QW Ref", "Items", "Serials"], fil.map(d => { const serCount = d.items.filter(i => i.serial).length; return (
@@ -468,7 +564,11 @@ export default function App() {
       <nav style={{ width: 220, background: T.sidebar, display: "flex", flexDirection: "column", flexShrink: 0 }}>
         <div style={{ padding: "22px 20px 16px", borderBottom: "1px solid rgba(255,255,255,.06)" }}><div style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{"\u25A6"} StockHub</div><div style={{ fontSize: 11, color: T.sideText, marginTop: 3 }}>Warehouse Stock Register</div></div>
         <div style={{ padding: "10px", flex: 1, overflow: "auto" }}>{nav.map(n => { const act = page === n.k; return <button key={n.k} onClick={() => { setPage(n.k); setSearch(""); setCF("all"); setModal(null); }} style={{ display: "flex", alignItems: "center", gap: 9, width: "100%", padding: "9px 12px", border: "none", background: act ? "rgba(255,255,255,.11)" : "transparent", color: act ? T.sideAct : T.sideText, borderRadius: 8, cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: act ? 600 : 400, transition: "all .15s", marginBottom: 1 }}><span style={{ fontSize: 14, width: 20, textAlign: "center" }}>{n.i}</span>{n.l}{n.badge && <span style={{ marginLeft: "auto", background: n.bc, color: "#fff", fontSize: 10, padding: "2px 6px", borderRadius: 99, fontWeight: 700 }}>{n.badge}</span>}</button>; })}</div>
-        <div style={{ padding: "10px 20px", borderTop: "1px solid rgba(255,255,255,.06)" }}><button onClick={resetAll} style={{ background: "none", border: "none", color: "rgba(255,255,255,.2)", fontSize: 11, cursor: "pointer", fontFamily: "inherit" }}>Reset demo</button></div>
+        <div style={{ padding: "10px 20px", borderTop: "1px solid rgba(255,255,255,.06)" }}>
+          <button onClick={async () => { try { const r = await fetch("/api/qw-sync?type=test"); const j = await r.json(); flash(j.success ? j.message : "Connection failed: " + j.error); } catch { flash("Connection failed"); } }} style={{ background: "none", border: "none", color: "rgba(255,255,255,.4)", fontSize: 11, cursor: "pointer", fontFamily: "inherit", marginBottom: 4, display: "block" }}>{"\u26A1"} Test QW Connection</button>
+          {syncing && <div style={{ color: "#d97706", fontSize: 11 }}>{"\u21BB"} Syncing...</div>}
+          <button onClick={resetAll} style={{ background: "none", border: "none", color: "rgba(255,255,255,.15)", fontSize: 10, cursor: "pointer", fontFamily: "inherit" }}>Reset demo</button>
+        </div>
       </nav>
       <main style={{ flex: 1, overflow: "auto", padding: "26px 34px" }}>{renderPage()}</main>
       {renderModal()}
@@ -492,8 +592,11 @@ function ProductEditModal({ data, serials, onSave, onAddSerial, onDeleteSerial, 
 
 function GoodsInForm({ data, products, ff, onSave, onClose }) {
   const isE = !!data?.id; const [fm, sF] = useState(data || { supplier: "", supplierRef: "", items: [], notes: "" });
-  const s = (k, v) => sF(p => ({ ...p, [k]: v })); const addI = () => sF(p => ({ ...p, items: [...p.items, { productId: "", qty: 1, unitCost: 0 }] })); const rmI = i => sF(p => ({ ...p, items: p.items.filter((_, j) => j !== i) })); const sI = (i, k, v) => sF(p => ({ ...p, items: p.items.map((x, j) => j === i ? { ...x, [k]: v } : x) }));
-  const sIP = (i, pid) => { const p = ff(products, pid); sI(i, "productId", pid); if (p) sI(i, "unitCost", p.costPrice); };
+  const s = (k, v) => sF(p => ({ ...p, [k]: v }));
+  const addI = () => sF(p => ({ ...p, items: [...p.items, { productId: "", qty: 1, unitCost: 0 }] }));
+  const rmI = i => sF(p => ({ ...p, items: p.items.filter((_, j) => j !== i) }));
+  const sI = (i, k, v) => sF(p => ({ ...p, items: p.items.map((x, j) => j === i ? { ...x, [k]: v } : x) }));
+  const sIP = (i, pid) => { const p = ff(products, pid); sF(prev => ({ ...prev, items: prev.items.map((x, j) => j === i ? { ...x, productId: pid, unitCost: p ? p.costPrice : x.unitCost } : x) })); };
   const tot = fm.items.reduce((s, i) => s + (i.qty || 1) * (i.unitCost || 0), 0);
   return <Overlay onClose={onClose} width={600}><div style={{ padding: 26 }}><h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 18 }}>{isE ? "Edit" : "Record"} Goods In</h2>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 18 }}><div><label style={lS}>Supplier</label><input style={iS} value={fm.supplier} onChange={e => s("supplier", e.target.value)} /></div><div><label style={lS}>Supplier Ref / PO</label><input style={iS} value={fm.supplierRef} onChange={e => s("supplierRef", e.target.value)} /></div><div style={{ gridColumn: "1/-1" }}><label style={lS}>Notes</label><textarea style={{ ...iS, minHeight: 40 }} value={fm.notes} onChange={e => s("notes", e.target.value)} /></div></div>
