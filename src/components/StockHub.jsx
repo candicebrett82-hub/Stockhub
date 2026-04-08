@@ -56,69 +56,80 @@ function useStore(key, fallback) {
   return [data, save, ready];
 }
 
-// 47 products from AZTEK_STOCK_SHEET_2026.xlsx (as at 31 March 2026)
+// Demo products (Aztek stock)
 const D_PROD = [
-  {id:"p1",sku:"DMS502B51",name:"DMS502B51",category:"Controls",costPrice:1133.56,salePrice:1530.31,totalQty:1,availableQty:1},
-  {id:"p2",sku:"DCM601B51",name:"DCM601B51",category:"Controls",costPrice:2340.56,salePrice:3159.76,totalQty:1,availableQty:0},
-  {id:"p3",sku:"BRC073A1",name:"BRC073A1",category:"Controls",costPrice:80.92,salePrice:109.24,totalQty:7,availableQty:7},
-  {id:"p4",sku:"BRC1E53A7",name:"BRC1E53A7",category:"Controls",costPrice:84.32,salePrice:113.83,totalQty:5,availableQty:5},
-  {id:"p5",sku:"BRC1H52W",name:"BRC1H52W",category:"Controls",costPrice:79.46,salePrice:107.27,totalQty:11,availableQty:11},
-  {id:"p6",sku:"BRC7EA628",name:"BRC7EA628",category:"Controls",costPrice:135.32,salePrice:182.68,totalQty:2,availableQty:2},
-  {id:"p7",sku:"BRP069B45",name:"BRP069B45",category:"Controls",costPrice:47.16,salePrice:63.67,totalQty:4,availableQty:4},
-  {id:"p8",sku:"BRCW901A03",name:"BRCW901A03",category:"Controls",costPrice:11.56,salePrice:15.61,totalQty:1,availableQty:1},
-  {id:"p9",sku:"EKRS21",name:"EKRS21",category:"Controls",costPrice:5.82,salePrice:7.86,totalQty:0,availableQty:0},
-  {id:"p10",sku:"KRP928BB2S",name:"KRP928BB2S",category:"Controls",costPrice:43.52,salePrice:58.75,totalQty:2,availableQty:2},
-  {id:"p11",sku:"KRP413BB1S",name:"KRP413BB1S",category:"Controls",costPrice:78.88,salePrice:106.49,totalQty:1,availableQty:1},
-  {id:"p12",sku:"EKAFVJ100F7",name:"EKAFVJ100F7",category:"Controls",costPrice:157.08,salePrice:212.06,totalQty:4,availableQty:4},
-  {id:"p13",sku:"2MXM68A2V1B9",name:"2MXM68A2V1B9",category:"Outdoor Units",costPrice:1371.56,salePrice:1851.61,totalQty:0,availableQty:0},
-  {id:"p14",sku:"3MXM52A2V1B9",name:"3MXM52A2V1B9",category:"Outdoor Units",costPrice:1197.48,salePrice:1616.6,totalQty:0,availableQty:0},
-  {id:"p15",sku:"4MXM68A2V1B",name:"4MXM68A2V1B",category:"Outdoor Units",costPrice:2058.36,salePrice:2778.79,totalQty:0,availableQty:0},
-  {id:"p16",sku:"5MXM90A",name:"5MXM90A",category:"Outdoor Units",costPrice:2085.76,salePrice:2815.78,totalQty:1,availableQty:1},
-  {id:"p17",sku:"ARXM71A",name:"ARXM71A",category:"Outdoor Units",costPrice:696.96,salePrice:940.9,totalQty:2,availableQty:2},
-  {id:"p18",sku:"AZAS100MV1",name:"AZAS100MV1",category:"Outdoor Units",costPrice:856.03,salePrice:1155.64,totalQty:0,availableQty:0},
-  {id:"p19",sku:"RXM35A5V1B9",name:"RXM35A5V1B9",category:"Outdoor Units",costPrice:501.94,salePrice:677.62,totalQty:0,availableQty:0},
-  {id:"p20",sku:"RXP25N5V1B9",name:"RXP25N5V1B9",category:"Outdoor Units",costPrice:321.92,salePrice:434.59,totalQty:3,availableQty:3},
-  {id:"p21",sku:"RXP35N5V1B9",name:"RXP35N5V1B9",category:"Outdoor Units",costPrice:373.76,salePrice:504.58,totalQty:2,availableQty:2},
-  {id:"p22",sku:"RXP50N8",name:"RXP50N8",category:"Outdoor Units",costPrice:486.4,salePrice:656.64,totalQty:2,availableQty:2},
-  {id:"p23",sku:"RZAG35B5V1B",name:"RZAG35B5V1B",category:"Outdoor Units",costPrice:734.72,salePrice:991.87,totalQty:0,availableQty:0},
-  {id:"p24",sku:"RZAG50B5V1B",name:"RZAG50B5V1B",category:"Outdoor Units",costPrice:896.64,salePrice:1210.46,totalQty:2,availableQty:2},
-  {id:"p25",sku:"CTXM15A",name:"CTXM15A",category:"Indoor Units",costPrice:138.72,salePrice:187.27,totalQty:3,availableQty:3},
-  {id:"p26",sku:"FAA100B",name:"FAA100B",category:"Indoor Units",costPrice:714.88,salePrice:965.09,totalQty:0,availableQty:0},
-  {id:"p27",sku:"FAA71B",name:"FAA71B",category:"Indoor Units",costPrice:656.0,salePrice:885.6,totalQty:2,availableQty:2},
-  {id:"p28",sku:"FTXA35C2V1BB",name:"FTXA35C2V1BB",category:"Indoor Units",costPrice:346.9,salePrice:468.31,totalQty:1,availableQty:1},
-  {id:"p29",sku:"FTXA50C2V1BW",name:"FTXA50C2V1BW",category:"Indoor Units",costPrice:435.5,salePrice:587.93,totalQty:1,availableQty:1},
-  {id:"p30",sku:"FTXF25F52U1B",name:"FTXF25F52U1B",category:"Indoor Units",costPrice:88.4,salePrice:119.34,totalQty:1,availableQty:1},
-  {id:"p31",sku:"FTXP25N5V1B",name:"FTXP25N5V1B",category:"Indoor Units",costPrice:113.28,salePrice:152.93,totalQty:3,availableQty:2},
-  {id:"p32",sku:"FTXP35N5V1B9",name:"FTXP35N5V1B9",category:"Indoor Units",costPrice:127.36,salePrice:171.94,totalQty:0,availableQty:0},
-  {id:"p33",sku:"FTXP50N5V1B9",name:"FTXP50N5V1B9",category:"Indoor Units",costPrice:206.72,salePrice:279.07,totalQty:3,availableQty:3},
-  {id:"p34",sku:"FTXM25R2V1B",name:"FTXM25R2V1B",category:"Indoor Units",costPrice:146.64,salePrice:197.96,totalQty:0,availableQty:0},
-  {id:"p35",sku:"FTXM35A2V1B",name:"FTXM35A2V1B",category:"Indoor Units",costPrice:170.88,salePrice:230.69,totalQty:0,availableQty:0},
-  {id:"p36",sku:"FDXM35F3V1B9",name:"FDXM35F3V1B9",category:"Indoor Units",costPrice:357.12,salePrice:482.11,totalQty:2,availableQty:2},
-  {id:"p37",sku:"FDXM50F3V1B9",name:"FDXM50F3V1B9",category:"Indoor Units",costPrice:392.96,salePrice:530.5,totalQty:1,availableQty:0},
-  {id:"p38",sku:"MC55VBFVM7",name:"MC55VBFVM7",category:"Indoor Units",costPrice:229.16,salePrice:309.37,totalQty:5,availableQty:5},
-  {id:"p39",sku:"KHRQ23M75T8",name:"KHRQ23M75T8",category:"Parts",costPrice:70.85,salePrice:95.65,totalQty:5,availableQty:5},
-  {id:"p40",sku:"KHRQ23M64T",name:"KHRQ23M64T",category:"Parts",costPrice:55.9,salePrice:75.47,totalQty:1,availableQty:1},
-  {id:"p41",sku:"KHRQ23M20T",name:"KHRQ23M20T",category:"Parts",costPrice:40.8,salePrice:55.08,totalQty:0,availableQty:0},
-  {id:"p42",sku:"KHRQ22M20T8",name:"KHRQ22M20T8",category:"Parts",costPrice:25.84,salePrice:34.88,totalQty:0,availableQty:0},
-  {id:"p43",sku:"KHRQ23M64T8",name:"KHRQ23M64T8",category:"Parts",costPrice:55.9,salePrice:75.47,totalQty:0,availableQty:0},
-  {id:"p44",sku:"BS4A14AV1B",name:"BS4A14AV1B",category:"Outdoor Units",costPrice:1624.46,salePrice:2193.02,totalQty:1,availableQty:1},
-  {id:"p45",sku:"AZAI16WSCDK1",name:"AZAI16WSCDK1",category:"Parts",costPrice:195.84,salePrice:264.38,totalQty:0,availableQty:0},
-  {id:"p46",sku:"5035698",name:"5035698",category:"Parts",costPrice:23.03,salePrice:31.09,totalQty:0,availableQty:0},
-  {id:"p47",sku:"4016600 - Fan Motor",name:"4016600 - Fan Motor",category:"Parts",costPrice:596.05,salePrice:804.67,totalQty:1,availableQty:1},
+  {id:"p1",sku:"DUCOFLEX D63 300M",name:"DUCOFLEX D63 300M",category:"Ducting",costPrice:0,salePrice:0,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p2",sku:"BRC073A1",name:"BRC073A1",category:"Controls",costPrice:80.92,salePrice:109.24,reorderLevel:2,totalQty:8,availableQty:8},
+  {id:"p3",sku:"BRC1E53A7",name:"BRC1E53A7",category:"Controls",costPrice:84.32,salePrice:113.83,reorderLevel:2,totalQty:5,availableQty:5},
+  {id:"p4",sku:"BRC1H52W",name:"BRC1H52W",category:"Controls",costPrice:79.46,salePrice:107.27,reorderLevel:2,totalQty:18,availableQty:16},
+  {id:"p5",sku:"BRC7EA628",name:"BRC7EA628",category:"Controls",costPrice:135.32,salePrice:182.68,reorderLevel:2,totalQty:3,availableQty:2},
+  {id:"p6",sku:"BRP069B45",name:"BRP069B45",category:"Parts",costPrice:47.16,salePrice:63.67,reorderLevel:2,totalQty:4,availableQty:4},
+  {id:"p7",sku:"BRCW901A03",name:"BRCW901A03",category:"Controls",costPrice:11.56,salePrice:15.61,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p8",sku:"BS4A14AV1B",name:"BS4A14AV1B",category:"Outdoor Units",costPrice:2022.32,salePrice:2730.13,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p9",sku:"EKRS21",name:"EKRS21",category:"Parts",costPrice:5.82,salePrice:7.86,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p10",sku:"KRP928BB2S",name:"KRP928BB2S",category:"Parts",costPrice:43.52,salePrice:58.75,reorderLevel:2,totalQty:2,availableQty:1},
+  {id:"p11",sku:"KRP413BB1S",name:"KRP413BB1S",category:"Parts",costPrice:78.88,salePrice:106.49,reorderLevel:2,totalQty:5,availableQty:5},
+  {id:"p12",sku:"EKAFVJ100F7",name:"EKAFVJ100F7",category:"Parts",costPrice:157.08,salePrice:212.06,reorderLevel:2,totalQty:4,availableQty:4},
+  {id:"p13",sku:"2MXM68A2V1B9",name:"2MXM68A2V1B9",category:"Outdoor Units",costPrice:1371.56,salePrice:1851.61,reorderLevel:2,totalQty:1,availableQty:0},
+  {id:"p14",sku:"3MXM52A2V1B9",name:"3MXM52A2V1B9",category:"Outdoor Units",costPrice:1197.48,salePrice:1616.60,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p15",sku:"4MXM68A2V1B",name:"4MXM68A2V1B",category:"Outdoor Units",costPrice:2058.36,salePrice:2778.79,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p16",sku:"5MXM90A",name:"5MXM90A",category:"Outdoor Units",costPrice:2085.76,salePrice:2815.78,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p17",sku:"ARXM71A",name:"ARXM71A",category:"Outdoor Units",costPrice:696.96,salePrice:940.90,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p18",sku:"AZAS100MV1",name:"AZAS100MV1",category:"Outdoor Units",costPrice:856.03,salePrice:1155.64,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p19",sku:"CTXM15A",name:"CTXM15A",category:"Indoor Units",costPrice:138.72,salePrice:187.27,reorderLevel:2,totalQty:3,availableQty:3},
+  {id:"p20",sku:"FAA100B",name:"FAA100B",category:"Indoor Units",costPrice:714.88,salePrice:965.09,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p21",sku:"FAA71B",name:"FAA71B",category:"Indoor Units",costPrice:656.00,salePrice:885.60,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p22",sku:"FTXA35C2V1BB",name:"FTXA35C2V1BB",category:"Indoor Units",costPrice:346.90,salePrice:468.31,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p23",sku:"FTXA50C2V1BW",name:"FTXA50C2V1BW",category:"Indoor Units",costPrice:435.50,salePrice:587.93,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p24",sku:"FTXP25N5V1B",name:"FTXP25N5V1B",category:"Indoor Units",costPrice:113.28,salePrice:152.93,reorderLevel:2,totalQty:3,availableQty:3},
+  {id:"p25",sku:"FTXP35N5V1B9",name:"FTXP35N5V1B9",category:"Indoor Units",costPrice:127.36,salePrice:171.94,reorderLevel:2,totalQty:2,availableQty:0},
+  {id:"p26",sku:"FTXP50N5V1B9",name:"FTXP50N5V1B9",category:"Indoor Units",costPrice:206.72,salePrice:279.07,reorderLevel:2,totalQty:3,availableQty:3},
+  {id:"p27",sku:"FTXM25R2V1B",name:"FTXM25R2V1B",category:"Indoor Units",costPrice:146.64,salePrice:197.96,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p28",sku:"FTXM35A2V1B",name:"FTXM35A2V1B",category:"Indoor Units",costPrice:170.88,salePrice:230.69,reorderLevel:2,totalQty:1,availableQty:0},
+  {id:"p29",sku:"FDXM35F3V1B9",name:"FDXM35F3V1B9",category:"Indoor Units",costPrice:357.12,salePrice:482.11,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p30",sku:"FDXM50F3V1B9",name:"FDXM50F3V1B9",category:"Indoor Units",costPrice:392.96,salePrice:530.50,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p31",sku:"RXM35A5V1B9",name:"RXM35A5V1B9",category:"Outdoor Units",costPrice:501.94,salePrice:677.62,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p32",sku:"RXP25N5V1B9",name:"RXP25N5V1B9",category:"Outdoor Units",costPrice:321.92,salePrice:434.59,reorderLevel:2,totalQty:3,availableQty:3},
+  {id:"p33",sku:"RXP35N5V1B9",name:"RXP35N5V1B9",category:"Outdoor Units",costPrice:373.76,salePrice:504.58,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p34",sku:"RXP50N8",name:"RXP50N8",category:"Outdoor Units",costPrice:486.40,salePrice:656.64,reorderLevel:2,totalQty:3,availableQty:3},
+  {id:"p35",sku:"RZAG35B5V1B",name:"RZAG35B5V1B",category:"Outdoor Units",costPrice:734.72,salePrice:991.87,reorderLevel:2,totalQty:2,availableQty:1},
+  {id:"p36",sku:"RZAG50B5V1B",name:"RZAG50B5V1B",category:"Outdoor Units",costPrice:896.64,salePrice:1210.46,reorderLevel:2,totalQty:2,availableQty:2},
+  {id:"p37",sku:"MC55VBFVM7",name:"MC55VBFVM7",category:"Parts",costPrice:229.16,salePrice:309.37,reorderLevel:2,totalQty:5,availableQty:5},
+  {id:"p38",sku:"KHRQ23M75T8",name:"KHRQ23M75T8",category:"Parts",costPrice:70.85,salePrice:95.65,reorderLevel:2,totalQty:5,availableQty:5},
+  {id:"p39",sku:"KHRQ23M64T",name:"KHRQ23M64T",category:"Parts",costPrice:55.90,salePrice:75.47,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p40",sku:"KHRQ23M20T",name:"KHRQ23M20T",category:"Parts",costPrice:40.80,salePrice:55.08,reorderLevel:2,totalQty:5,availableQty:5},
+  {id:"p41",sku:"KHRQ22M20T8",name:"KHRQ22M20T8",category:"Parts",costPrice:25.84,salePrice:34.88,reorderLevel:2,totalQty:2,availableQty:0},
+  {id:"p42",sku:"DMS502B51",name:"DMS502B51",category:"Outdoor Units",costPrice:1133.56,salePrice:1530.31,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p43",sku:"DCM601B51",name:"DCM601B51",category:"Outdoor Units",costPrice:2340.56,salePrice:3159.76,reorderLevel:2,totalQty:1,availableQty:1},
+  {id:"p44",sku:"AZAI16WSCDK1",name:"AZAI16WSCDK1",category:"Parts",costPrice:195.84,salePrice:264.38,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p45",sku:"5035698",name:"5035698",category:"Parts",costPrice:23.03,salePrice:31.09,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p46",sku:"BRYQ140C8",name:"BRYQ140C8",category:"Parts",costPrice:102.00,salePrice:137.70,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p47",sku:"4016600",name:"4016600 - Fan Motor",category:"Parts",costPrice:596.05,salePrice:804.67,reorderLevel:2,totalQty:0,availableQty:0},
+  {id:"p48",sku:"KHRQ23M64T8",name:"KHRQ23M64T8",category:"Parts",costPrice:55.90,salePrice:75.47,reorderLevel:2,totalQty:7,availableQty:7},
 ];
 
 // ══════════════════════════════════════════════════════════════
 export default function App() {
   const [products, setProd, r1] = useStore("products", D_PROD);
-  const [serials, setSer, r2] = useStore("serials", []);       // {id, productId, serial, status:"in_stock"|"dispatched", customer, qwRef, dispatchDate, addedDate}
+  const [serials, setSer, r2] = useStore("serials", []);       // {id, productId, serial, status:"in_stock"|"dispatched", customer, qwRef, dispatchDate, addedDate, cost, supplier, supplierRef}
   const [goodsIn, setGI, r3] = useStore("goods_in", []);       // {id, supplier, supplierRef, items, notes, created, receivedDate, status}
   const [dispatches, setDisp, r4] = useStore("dispatches", []);    // {id, customer, qwRef, items:[{sku, serial, productId, qty}], date, importedDate}
+  const [settings, setSettings, r5] = useStore("settings", { ageThresholdDays: 90 });
   const [page, setPage] = useState("dashboard");
   const [modal, setModal] = useState(null);
   const [search, setSearch] = useState("");
   const [catFilter, setCF] = useState("all");
   const [toast, setToast] = useState(null);
-  const ready = r1 && r2 && r3 && r4;
+  const ready = r1 && r2 && r3 && r4 && r5;
+
+  // Helper: days since a date
+  const daysSince = (dateStr) => {
+    if (!dateStr) return 0;
+    const ms = Date.now() - new Date(dateStr).getTime();
+    return Math.floor(ms / (1000 * 60 * 60 * 24));
+  };
+  const isOld = (s) => s.status === "in_stock" && daysSince(s.addedDate) >= (settings.ageThresholdDays || 90);
+  const oldStockCount = serials.filter(isOld).length;
 
   const flash = m => { setToast(m); setTimeout(() => setToast(null), 2400); };
   const ff = (arr, id) => arr.find(x => x.id === id);
@@ -132,14 +143,26 @@ export default function App() {
 
   // ── Product CRUD ──────────────
   const saveProd = p => { setProd(prev => p.id ? prev.map(x => x.id === p.id ? p : x) : [...prev, { ...p, id: uid() }]); flash("Saved"); setModal(null); };
-  const addSer = (pid, sn) => { if (serials.some(s => s.serial === sn)) { flash("Serial exists!"); return false; } setSer(p => [...p, { id: uid(), productId: pid, serial: sn, status: "in_stock", customer: "", qwRef: "", dispatchDate: "", addedDate: today() }]); flash("Serial added"); return true; };
+  const addSer = (pid, sn, opts = {}) => { if (serials.some(s => s.serial === sn)) { flash("Serial exists!"); return false; } setSer(p => [...p, { id: uid(), productId: pid, serial: sn, status: "in_stock", customer: "", qwRef: "", dispatchDate: "", addedDate: opts.arrivalDate || today(), cost: opts.cost || 0, supplier: opts.supplier || "", supplierRef: opts.supplierRef || "" }]); return true; };
   const delSer = id => { const s = ff(serials, id); if (s?.status !== "in_stock") { flash("Only in-stock"); return; } setSer(p => p.filter(x => x.id !== id)); flash("Removed"); };
 
   // ── Goods In ──────────────────
   const saveGI = g => { const isNew = !g.id; const rec = isNew ? { ...g, id: uid(), created: today(), status: "pending" } : g; setGI(prev => isNew ? [...prev, rec] : prev.map(x => x.id === rec.id ? rec : x)); flash(isNew ? "Recorded" : "Updated"); setModal(null); };
   const receiveGI = (gid, newSerials) => {
     const g = ff(goodsIn, gid); if (!g) return;
-    (newSerials || []).forEach(s => { if (s.serial.trim()) addSer(s.productId, s.serial.trim()); });
+    // Build a productId -> unitCost lookup from the goods-in items
+    const costLookup = {};
+    g.items.forEach(it => { costLookup[it.productId] = it.unitCost || 0; });
+    (newSerials || []).forEach(s => {
+      if (s.serial.trim()) {
+        addSer(s.productId, s.serial.trim(), {
+          arrivalDate: today(),
+          cost: costLookup[s.productId] || 0,
+          supplier: g.supplier,
+          supplierRef: g.supplierRef || ""
+        });
+      }
+    });
     const byProd = {}, costByProd = {};
     g.items.forEach(it => { byProd[it.productId] = (byProd[it.productId] || 0) + (it.qty || 1); costByProd[it.productId] = it.unitCost || 0; });
     setProd(prev => prev.map(p => {
@@ -181,8 +204,6 @@ export default function App() {
     setModal(null);
   };
 
-  const resetAll = async () => { await setProd(D_PROD); await setSer([]); await setGI([]); await setDisp([]); flash("Reset"); };
-
   const [syncing, setSyncing] = useState(false);
   const syncFromQW = async (type) => {
     setSyncing(true);
@@ -197,14 +218,11 @@ export default function App() {
         const existing = dispatches.map(d => d.qwRef).filter(Boolean);
         const newDocs = docs.filter(d => !existing.includes(d.qwRef));
         if (newDocs.length === 0) { flash("No new dispatches found"); setSyncing(false); return; }
-
         const newDispatches = newDocs.map(d => ({
           id: uid(), customer: d.customer, qwRef: d.qwRef, date: d.date, importedDate: today(),
           items: d.items.map(i => ({ sku: i.sku, serial: i.serial, qty: i.qty }))
         }));
         setDisp(prev => [...prev, ...newDispatches]);
-
-        // Mark serials as dispatched and deduct stock
         const allSerials = newDocs.flatMap(d => d.items.filter(i => i.serial).map(i => ({ serial: i.serial, customer: d.customer, qwRef: d.qwRef })));
         if (allSerials.length > 0) {
           setSer(prev => prev.map(s => {
@@ -218,7 +236,6 @@ export default function App() {
           if (prod) stockDeductions[prod.id] = (stockDeductions[prod.id] || 0) + (i.qty || 1);
         }));
         setProd(prev => prev.map(p => stockDeductions[p.id] ? { ...p, totalQty: Math.max(0, (p.totalQty || 0) - stockDeductions[p.id]), availableQty: Math.max(0, (p.availableQty || 0) - stockDeductions[p.id]) } : p));
-
         flash(`${newDispatches.length} new dispatch${newDispatches.length !== 1 ? "es" : ""} synced from QW`);
       }
 
@@ -227,7 +244,6 @@ export default function App() {
         const existing = goodsIn.map(g => g.supplierRef).filter(Boolean);
         const newDocs = docs.filter(d => !existing.includes(d.qwRef));
         if (newDocs.length === 0) { flash("No new goods-in found"); setSyncing(false); return; }
-
         const newGoodsIn = newDocs.map(d => {
           const supplierName = d.items[0]?.manufacturer || d.items[0]?.vendor || d.supplier || "Unknown";
           return {
@@ -239,13 +255,12 @@ export default function App() {
           };
         });
         setGI(prev => [...prev, ...newGoodsIn]);
-
-        // Register serials and increase stock
         newDocs.forEach(d => {
+          const supplierName = d.items[0]?.manufacturer || d.items[0]?.vendor || d.supplier || "Unknown";
           d.items.forEach(i => {
             if (i.serial) {
               const prod = products.find(p => p.sku === i.sku);
-              if (prod) addSer(prod.id, i.serial);
+              if (prod) addSer(prod.id, i.serial, { arrivalDate: d.date || today(), cost: i.unitCost || 0, supplier: supplierName, supplierRef: d.qwRef });
             }
           });
         });
@@ -264,7 +279,6 @@ export default function App() {
           const hist = [...(p.costHistory || []), { date: today(), cost: nc, supplier: "QW Sync", qty: add, ref: "" }];
           return { ...p, totalQty: (p.totalQty || 0) + add, availableQty: (p.availableQty || 0) + add, costPrice: nc > 0 ? nc : p.costPrice, lastCostDate: today(), lastCostSupplier: "QW Sync", costHistory: hist };
         }));
-
         flash(`${newGoodsIn.length} new goods-in synced from QW`);
       }
     } catch (err) {
@@ -274,12 +288,15 @@ export default function App() {
     setSyncing(false);
   };
 
+  const resetAll = async () => { await setProd(D_PROD); await setSer([]); await setGI([]); await setDisp([]); flash("Reset"); };
+
   const nav = [
     { k: "dashboard", l: "Dashboard", i: "\u25D0" },
     { k: "products", l: "Products", i: "\u25A6" },
     { k: "goodsin", l: "Goods In", i: "\u2191", badge: goodsIn.filter(g => g.status === "pending").length || null, bc: "#d97706" },
     { k: "goodsout", l: "Goods Out", i: "\u2193", badge: dispatches.length > 0 ? dispatches.length : null, bc: T.accent },
-    { k: "serials", l: "Serials", i: "\u27D0" },
+    { k: "serials", l: "Serials", i: "\u27D0", badge: oldStockCount > 0 ? oldStockCount : null, bc: "#b91c1c" },
+    { k: "settings", l: "Settings", i: "\u2699" },
   ];
 
   if (!ready) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", fontFamily: "system-ui", background: T.bg, color: T.muted }}><div style={{ textAlign: "center" }}><div style={{ fontSize: 32, animation: "spin 1s linear infinite" }}>{"\u25D0"}</div><div style={{ marginTop: 12 }}>Loading...</div></div><style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style></div>;
@@ -314,6 +331,7 @@ export default function App() {
             <Card label="Stock Value" value={money(totalValue)} color="#16a34a" onClick={() => setModal({ type: "stockValue" })} />
             <Card label="Serials Tracked" value={inStockSerials} sub={`${dispatchedSerials} dispatched`} onClick={() => setPage("serials")} />
             <Card label="Pending In" value={goodsIn.filter(g => g.status === "pending").length} color="#d97706" onClick={() => setPage("goodsin")} />
+            {oldStockCount > 0 && <Card label={`Stock > ${settings.ageThresholdDays}d`} value={oldStockCount} color="#b91c1c" onClick={() => setPage("serials")} />}
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
             <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 10, padding: 18 }}>
@@ -371,7 +389,7 @@ export default function App() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
             <div><h1 style={{ fontSize: 22, fontWeight: 700 }}>Goods In</h1><p style={{ color: T.muted, fontSize: 12, marginTop: 2 }}>Stock received from suppliers</p></div>
             <div style={{ display: "flex", gap: 8 }}>
-              <button style={bp} onClick={() => syncFromQW("goodsin")}>{"\u21BB"} Sync from QW</button>
+              <button style={bp} onClick={() => syncFromQW("goodsin")} disabled={syncing}>{syncing ? "Syncing..." : "\u21BB Sync from QW"}</button>
               <button style={bs} onClick={() => setModal({ type: "editGI", data: null })}>+ Manual Entry</button>
             </div>
           </div>
@@ -397,7 +415,7 @@ export default function App() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
             <div><h1 style={{ fontSize: 22, fontWeight: 700 }}>Goods Out</h1><p style={{ color: T.muted, fontSize: 12, marginTop: 2 }}>Dispatches from QuoteWerks</p></div>
             <div style={{ display: "flex", gap: 8 }}>
-              <button style={bp} onClick={() => syncFromQW("dispatches")}>{"\u21BB"} Sync from QW</button>
+              <button style={bp} onClick={() => syncFromQW("dispatches")} disabled={syncing}>{syncing ? "Syncing..." : "\u21BB Sync from QW"}</button>
               <button style={bs} onClick={() => setModal({ type: "importDispatches" })}>{"\u2191"} CSV Import</button>
             </div>
           </div>
@@ -416,28 +434,68 @@ export default function App() {
 
     // ── SERIALS
     if (page === "serials") {
-      const fil = serials.filter(s => { if (catFilter !== "all" && s.status !== catFilter) return false; if (!search) return true; const p = ff(products, s.productId); return [s.serial, p?.name, p?.sku, s.customer].some(v => (v || "").toLowerCase().includes(search.toLowerCase())); });
+      const fil = serials
+        .filter(s => { if (catFilter !== "all" && s.status !== catFilter) return false; if (!search) return true; const p = ff(products, s.productId); return [s.serial, p?.name, p?.sku, s.customer].some(v => (v || "").toLowerCase().includes(search.toLowerCase())); })
+        .sort((a, b) => {
+          // In stock first, oldest first; then dispatched newest first
+          if (a.status === "in_stock" && b.status !== "in_stock") return -1;
+          if (a.status !== "in_stock" && b.status === "in_stock") return 1;
+          if (a.status === "in_stock") return new Date(a.addedDate || 0) - new Date(b.addedDate || 0);
+          return new Date(b.dispatchDate || 0) - new Date(a.dispatchDate || 0);
+        });
       return (
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-            <h1 style={{ fontSize: 22, fontWeight: 700 }}>Serial Numbers</h1>
+            <div><h1 style={{ fontSize: 22, fontWeight: 700 }}>Serial Numbers</h1><p style={{ color: T.muted, fontSize: 12, marginTop: 2 }}>In-stock serials shown oldest first (FIFO)</p></div>
             <button style={bp} onClick={() => setModal({ type: "quickSerial" })}>+ Add Serial</button>
           </div>
           <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
             <input placeholder="Search serial, product, customer..." value={search} onChange={e => setSearch(e.target.value)} style={{ ...iS, flex: 1 }} />
             <select value={catFilter} onChange={e => setCF(e.target.value)} style={{ ...iS, width: "auto", minWidth: 140 }}><option value="all">All</option><option value="in_stock">In Stock</option><option value="dispatched">Dispatched</option></select>
           </div>
-          {renderTable(["Serial", "Product", "SKU", "Status", "Customer", "QW Ref", "Date"], fil.map(s => { const p = ff(products, s.productId); return (
-            <tr key={s.id} className="hovRow" style={{ borderBottom: `1px solid ${T.bg}` }}>
-              <td style={{ ...tdS, fontFamily: MF, fontSize: 12, fontWeight: 500 }}>{s.serial}</td>
-              <td style={{ ...tdS, fontWeight: 600 }}>{p?.name || "\u2014"}</td>
-              <td style={{ ...tdS, fontFamily: MF, fontSize: 12, color: T.muted }}>{p?.sku || "\u2014"}</td>
-              <td style={tdS}><Badge status={s.status} map={SER_STY} /></td>
-              <td style={{ ...tdS, fontWeight: s.customer ? 600 : 400, color: s.customer ? T.text : T.muted }}>{s.customer || "\u2014"}</td>
-              <td style={{ ...tdS, fontFamily: MF, fontSize: 11, color: T.muted }}>{s.qwRef || "\u2014"}</td>
-              <td style={{ ...tdS, fontSize: 12, color: T.muted }}>{fd(s.status === "dispatched" ? s.dispatchDate : s.addedDate)}</td>
-            </tr>
-          ); }))}
+          {oldStockCount > 0 && catFilter !== "dispatched" && <div style={{ background: "#fef3c7", border: "1px solid #fde68a", color: "#92400e", padding: "10px 14px", borderRadius: 8, marginBottom: 14, fontSize: 13 }}><strong>{oldStockCount}</strong> serial{oldStockCount !== 1 ? "s" : ""} in stock for {settings.ageThresholdDays}+ days</div>}
+          {renderTable(["Serial", "Product", "Age", "Status", "Customer / Supplier", "QW Ref", "Date"], fil.map(s => {
+            const p = ff(products, s.productId);
+            const days = s.status === "in_stock" ? daysSince(s.addedDate) : null;
+            const old = s.status === "in_stock" && days >= (settings.ageThresholdDays || 90);
+            return (
+              <tr key={s.id} className="hovRow" style={{ borderBottom: `1px solid ${T.bg}`, background: old ? "#fef3c7" : "transparent" }}>
+                <td style={{ ...tdS, fontFamily: MF, fontSize: 12, fontWeight: 500 }}>{s.serial}</td>
+                <td style={{ ...tdS, fontWeight: 600 }}>{p?.name || "\u2014"}<div style={{ fontSize: 10, color: T.muted, fontFamily: MF }}>{p?.sku || ""}</div></td>
+                <td style={tdS}>{s.status === "in_stock" ? <span style={{ fontWeight: 600, color: old ? "#b91c1c" : T.text, fontSize: 13 }}>{days}d</span> : <span style={{ color: T.muted }}>{"\u2014"}</span>}</td>
+                <td style={tdS}><Badge status={s.status} map={SER_STY} /></td>
+                <td style={{ ...tdS, fontSize: 12 }}>{s.status === "dispatched" ? (s.customer || "\u2014") : (s.supplier || "\u2014")}</td>
+                <td style={{ ...tdS, fontFamily: MF, fontSize: 11, color: T.muted }}>{s.qwRef || s.supplierRef || "\u2014"}</td>
+                <td style={{ ...tdS, fontSize: 12, color: T.muted }}>{fd(s.status === "dispatched" ? s.dispatchDate : s.addedDate)}</td>
+              </tr>
+            );
+          }))}
+        </div>
+      );
+    }
+
+    if (page === "settings") {
+      return (
+        <div>
+          <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 22 }}>Settings</h1>
+          <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 10, padding: 24, maxWidth: 560 }}>
+            <h2 style={{ fontSize: 15, fontWeight: 700, marginBottom: 6 }}>Stock Age Threshold</h2>
+            <p style={{ fontSize: 13, color: T.muted, marginBottom: 16 }}>Stock older than this will be flagged as old in the serial register and on the dashboard.</p>
+            <label style={lS}>Days</label>
+            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+              <input
+                type="number"
+                min="1"
+                value={settings.ageThresholdDays || 90}
+                onChange={e => setSettings({ ...settings, ageThresholdDays: parseInt(e.target.value) || 90 })}
+                style={{ ...iS, width: 120 }}
+              />
+              <span style={{ fontSize: 13, color: T.muted }}>days</span>
+            </div>
+            <div style={{ marginTop: 14, padding: 12, background: T.bg, borderRadius: 8, fontSize: 12, color: T.muted }}>
+              Currently flagging <strong style={{ color: oldStockCount > 0 ? "#b91c1c" : T.text }}>{oldStockCount}</strong> serial{oldStockCount !== 1 ? "s" : ""} as old stock.
+            </div>
+          </div>
         </div>
       );
     }
@@ -456,6 +514,9 @@ export default function App() {
       const p = ff(products, modal.data?.id) || modal.data;
       const tq = p.totalQty || 0, aq = p.availableQty || 0;
       const pSer = serials.filter(s => s.productId === p.id);
+      const inStockSer = pSer.filter(s => s.status === "in_stock").sort((a, b) => new Date(a.addedDate || 0) - new Date(b.addedDate || 0));
+      const trueValue = inStockSer.reduce((sum, s) => sum + (s.cost || 0), 0);
+      const valueDisplay = trueValue > 0 ? trueValue : tq * (p.costPrice || 0);
       const moves = [];
       goodsIn.forEach(g => g.items.forEach(it => { if (it.productId === p.id && g.receivedDate) moves.push({ date: g.receivedDate, type: "in", qty: it.qty || 1, detail: g.supplier, cost: it.unitCost, ref: g.supplierRef }); }));
       dispatches.forEach(d => d.items.forEach(it => { const prod = products.find(x => x.sku === it.sku); if (prod?.id === p.id) moves.push({ date: d.date, type: "out", qty: it.qty || 1, detail: d.customer, ref: d.qwRef, serial: it.serial }); }));
@@ -464,11 +525,33 @@ export default function App() {
       return (
         <Overlay onClose={() => setModal(null)} width={640}><div style={{ padding: 26 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 18 }}><div><h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>{p.name}</h2><p style={{ color: T.muted, fontSize: 13, fontFamily: MF }}>{p.sku} {"\u00B7"} {p.category}</p></div><button style={bsm} onClick={() => setModal({ type: "editProd", data: p })}>Edit</button></div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 10, marginBottom: 18 }}>{[["Total", tq], ["Available", aq, "#16a34a"], ["Serials", pSer.filter(s => s.status === "in_stock").length, "#2563eb"], ["Value", money(tq * (p.costPrice || 0))]].map(([l, v, c]) => <div key={l} style={{ background: T.bg, borderRadius: 8, padding: 12, textAlign: "center" }}><div style={{ fontSize: 22, fontWeight: 700, color: c || T.text }}>{v}</div><div style={{ fontSize: 11, color: T.muted }}>{l}</div></div>)}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 10, marginBottom: 18 }}>{[["Total", tq], ["Available", aq, "#16a34a"], ["Serials", inStockSer.length, "#2563eb"], ["Value", money(valueDisplay)]].map(([l, v, c]) => <div key={l} style={{ background: T.bg, borderRadius: 8, padding: 12, textAlign: "center" }}><div style={{ fontSize: 22, fontWeight: 700, color: c || T.text }}>{v}</div><div style={{ fontSize: 11, color: T.muted }}>{l}</div></div>)}</div>
           <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14, marginBottom: 18 }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}><div><div style={lS}>Last Cost</div><div style={{ fontSize: 18, fontWeight: 700 }}>{money(p.costPrice)}</div></div><div><div style={lS}>Sale Price</div><div style={{ fontSize: 18, fontWeight: 700 }}>{money(p.salePrice)}</div></div><div><div style={lS}>Margin</div><div style={{ fontSize: 18, fontWeight: 700, color: ((p.salePrice || 0) - (p.costPrice || 0)) > 0 ? "#16a34a" : "#dc2626" }}>{p.costPrice > 0 ? ((((p.salePrice || 0) - (p.costPrice || 0)) / (p.costPrice || 1)) * 100).toFixed(1) + "%" : "\u2014"}</div></div></div>
             {p.lastCostDate && <div style={{ fontSize: 12, color: T.muted, borderTop: `1px solid ${T.border}`, paddingTop: 8, marginTop: 8 }}>Updated {fd(p.lastCostDate)}{p.lastCostSupplier && ` from ${p.lastCostSupplier}`}</div>}
           </div>
+          {inStockSer.length > 0 && <div style={{ marginBottom: 18 }}>
+            <label style={lS}>FIFO Pick Order ({inStockSer.length} in stock)</label>
+            <div style={{ maxHeight: 240, overflow: "auto", border: `1px solid ${T.border}`, borderRadius: 8 }}>
+              {inStockSer.map((s, i) => {
+                const days = daysSince(s.addedDate);
+                const old = days >= (settings.ageThresholdDays || 90);
+                return (
+                  <div key={s.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderBottom: i < inStockSer.length - 1 ? `1px solid ${T.bg}` : "none", background: i === 0 ? T.accentBg : "transparent" }}>
+                    {i === 0 && <span style={{ background: T.accent, color: "#fff", padding: "3px 8px", borderRadius: 4, fontSize: 10, fontWeight: 700 }}>PICK NEXT</span>}
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontFamily: MF, fontSize: 13, fontWeight: 600 }}>{s.serial}</div>
+                      <div style={{ fontSize: 11, color: T.muted, marginTop: 2 }}>Arrived {fd(s.addedDate)}{s.supplier && ` from ${s.supplier}`}{s.cost > 0 && ` \u00B7 ${money(s.cost)}`}</div>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: old ? "#b91c1c" : T.text }}>{days} day{days !== 1 ? "s" : ""}</div>
+                      {old && <div style={{ fontSize: 10, color: "#b91c1c", fontWeight: 700 }}>OLD STOCK</div>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>}
           {(p.costHistory || []).length > 0 && <div style={{ marginBottom: 18 }}><label style={lS}>Cost History</label>{[...(p.costHistory || [])].reverse().map((ch, i) => <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "8px 6px", borderBottom: `1px solid ${T.bg}`, fontSize: 13 }}><span>{fd(ch.date)} {"\u00B7"} {ch.supplier}</span><span style={{ fontWeight: 600 }}>{money(ch.cost)} x{ch.qty}</span></div>)}</div>}
           <div style={{ marginBottom: 16 }}><label style={lS}>Stock Movements</label>{moves.length === 0 && <div style={{ color: T.muted, fontSize: 13, padding: 12, textAlign: "center" }}>No movements</div>}<div style={{ maxHeight: 220, overflow: "auto" }}>{moves.map((m, i) => { const s = mc[m.type]; return <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 6px", borderBottom: `1px solid ${T.bg}` }}><span style={{ background: s.bg, color: s.c, padding: "3px 8px", borderRadius: 4, fontSize: 10, fontWeight: 700, minWidth: 50, textAlign: "center" }}>{s.l}</span><div style={{ flex: 1 }}><span style={{ fontWeight: 600, fontSize: 13 }}>{m.qty} unit{m.qty !== 1 ? "s" : ""}</span>{m.cost > 0 && <span style={{ fontSize: 11, color: T.muted }}> @ {money(m.cost)}</span>}{m.serial && <span style={{ fontSize: 11, fontFamily: MF, color: T.accent }}> S/N: {m.serial}</span>}<div style={{ fontSize: 12, color: T.muted }}>{m.detail}{m.ref && ` \u00B7 ${m.ref}`}</div></div><div style={{ fontSize: 12, color: T.muted }}>{fd(m.date)}</div></div>; })}</div></div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}><button style={bs} onClick={() => setModal(null)}>Close</button></div>
@@ -564,11 +647,7 @@ export default function App() {
       <nav style={{ width: 220, background: T.sidebar, display: "flex", flexDirection: "column", flexShrink: 0 }}>
         <div style={{ padding: "22px 20px 16px", borderBottom: "1px solid rgba(255,255,255,.06)" }}><div style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{"\u25A6"} StockHub</div><div style={{ fontSize: 11, color: T.sideText, marginTop: 3 }}>Warehouse Stock Register</div></div>
         <div style={{ padding: "10px", flex: 1, overflow: "auto" }}>{nav.map(n => { const act = page === n.k; return <button key={n.k} onClick={() => { setPage(n.k); setSearch(""); setCF("all"); setModal(null); }} style={{ display: "flex", alignItems: "center", gap: 9, width: "100%", padding: "9px 12px", border: "none", background: act ? "rgba(255,255,255,.11)" : "transparent", color: act ? T.sideAct : T.sideText, borderRadius: 8, cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: act ? 600 : 400, transition: "all .15s", marginBottom: 1 }}><span style={{ fontSize: 14, width: 20, textAlign: "center" }}>{n.i}</span>{n.l}{n.badge && <span style={{ marginLeft: "auto", background: n.bc, color: "#fff", fontSize: 10, padding: "2px 6px", borderRadius: 99, fontWeight: 700 }}>{n.badge}</span>}</button>; })}</div>
-        <div style={{ padding: "10px 20px", borderTop: "1px solid rgba(255,255,255,.06)" }}>
-          <button onClick={async () => { try { const r = await fetch("/api/qw-sync?type=test"); const j = await r.json(); flash(j.success ? j.message : "Connection failed: " + j.error); } catch { flash("Connection failed"); } }} style={{ background: "none", border: "none", color: "rgba(255,255,255,.4)", fontSize: 11, cursor: "pointer", fontFamily: "inherit", marginBottom: 4, display: "block" }}>{"\u26A1"} Test QW Connection</button>
-          {syncing && <div style={{ color: "#d97706", fontSize: 11 }}>{"\u21BB"} Syncing...</div>}
-          <button onClick={resetAll} style={{ background: "none", border: "none", color: "rgba(255,255,255,.15)", fontSize: 10, cursor: "pointer", fontFamily: "inherit" }}>Reset demo</button>
-        </div>
+        <div style={{ padding: "10px 20px", borderTop: "1px solid rgba(255,255,255,.06)" }}><button onClick={resetAll} style={{ background: "none", border: "none", color: "rgba(255,255,255,.2)", fontSize: 11, cursor: "pointer", fontFamily: "inherit" }}>Reset demo</button></div>
       </nav>
       <main style={{ flex: 1, overflow: "auto", padding: "26px 34px" }}>{renderPage()}</main>
       {renderModal()}
