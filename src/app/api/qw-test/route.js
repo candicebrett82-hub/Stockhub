@@ -7,25 +7,14 @@ export async function GET() {
   try {
     const pool = await getQWConnection();
 
-    let hasSerialNumber = false;
-    try {
-      await pool.request().query("SELECT TOP 1 SerialNumber FROM DocumentItems");
-      hasSerialNumber = true;
-    } catch { hasSerialNumber = false; }
+    const memo02Values = await pool.request().query("SELECT DISTINCT LTRIM(RTRIM(di.CustomMemo02)) AS val FROM DocumentItems di WHERE di.CustomMemo02 IS NOT NULL AND di.CustomMemo02 != '' AND di.LineType = 1");
 
-    let hasSerialNumbers = false;
-    try {
-      await pool.request().query("SELECT TOP 1 SerialNumbers FROM DocumentItems");
-      hasSerialNumbers = true;
-    } catch { hasSerialNumbers = false; }
-
-    const sample = await pool.request().query("SELECT TOP 3 di.ManufacturerPartNumber, di.CustomText04, di.CustomMemo02, di.CustomDate02 FROM DocumentItems di WHERE di.CustomMemo02 = 'Aztek' AND di.LineType = 1");
+    const sampleWithMemo = await pool.request().query("SELECT TOP 5 di.ManufacturerPartNumber AS sku, di.CustomMemo02 AS goodsInType, di.CustomText04 AS serialAlt, di.CustomDate02 AS dateReceived, di.CustomMemo04 AS bookedIn, di.UnitCost, di.Manufacturer, di.Vendor FROM DocumentItems di WHERE di.CustomMemo02 IS NOT NULL AND di.CustomMemo02 != '' AND di.LineType = 1");
 
     return NextResponse.json({
       success: true,
-      hasSerialNumberColumn: hasSerialNumber,
-      hasSerialNumbersColumn: hasSerialNumbers,
-      sampleAztekItems: sample.recordset
+      distinctGoodsInTypes: memo02Values.recordset.map(r => r.val),
+      sampleItems: sampleWithMemo.recordset
     });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
