@@ -31,7 +31,7 @@ export async function GET(request) {
       const dateFilter = since ? "AND ISNULL(di.CustomDate02, dh.DocDate) >= @since2" : "";
       const req2 = pool.request();
       if (since) req2.input("since2", since);
-      const pos = await req2.query("SELECT dh.DocNo AS qwRef, ISNULL(di.CustomDate02, dh.DocDate) AS poDate, dh.SoldToCompany AS soldTo, dh.DocStatus AS status, di.ManufacturerPartNumber AS sku, di.Description AS description, di.QtyTotal AS qty, di.UnitCost AS unitCost, di.SerialNumber AS serial, di.CustomText04 AS serialAlt, di.Manufacturer AS manufacturer, di.Vendor AS vendor, di.CustomMemo02 AS goodsInType, di.CustomDate02 AS dateReceived, di.CustomMemo04 AS bookedInStatus FROM DocumentHeaders dh INNER JOIN DocumentItems di ON di.DocID = dh.ID WHERE di.LineType = 1 AND di.UnitCost > 0 AND di.CustomMemo02 = 'Aztek' " + dateFilter + " ORDER BY ISNULL(di.CustomDate02, dh.DocDate) DESC");
+      const pos = await req2.query("SELECT dh.DocNo AS qwRef, ISNULL(di.CustomDate02, dh.DocDate) AS poDate, dh.SoldToCompany AS soldTo, dh.DocStatus AS status, di.ManufacturerPartNumber AS sku, di.Description AS description, di.QtyTotal AS qty, di.UnitCost AS unitCost, di.SerialNumber AS serial, di.CustomText04 AS serialAlt, di.Manufacturer AS manufacturer, di.Vendor AS vendor, di.CustomMemo02 AS goodsInType, di.CustomDate02 AS dateReceived, di.CustomMemo04 AS bookedInStatus FROM DocumentHeaders dh INNER JOIN DocumentItems di ON di.DocID = dh.ID WHERE di.LineType = 1 AND di.UnitCost > 0 AND LTRIM(RTRIM(di.CustomMemo02)) = 'Aztek' " + dateFilter + " ORDER BY ISNULL(di.CustomDate02, dh.DocDate) DESC");
       const grouped = {};
       for (const row of pos.recordset) {
         const key = row.qwRef;
