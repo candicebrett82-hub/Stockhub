@@ -12,7 +12,7 @@ export async function GET(request) {
       const dateFilter = since ? "AND dh.DocDate >= @since" : "";
       const req = pool.request();
       if (since) req.input("since", since);
-      const invoices = await req.query("SELECT dh.DocNo AS qwRef, dh.DocType AS docType, dh.DocDate AS invoiceDate, dh.SoldToCompany AS customer, dh.SoldToContact AS contact, dh.DocStatus AS status, di.ManufacturerPartNumber AS sku, di.Description AS description, di.QtyTotal AS qty, di.UnitPrice AS unitPrice, di.UnitCost AS unitCost, di.CustomText04 AS serial, di.Manufacturer AS manufacturer, di.Vendor AS vendor, di.CustomText10 AS xeroInvoiceRef FROM DocumentHeaders dh INNER JOIN DocumentItems di ON di.DocID = dh.ID WHERE (dh.DocType = 'INVOICE' OR (dh.DocType = 'ORDER' AND di.CustomText10 IS NOT NULL AND LTRIM(RTRIM(di.CustomText10)) <> '')) AND di.LineType = 1 " + dateFilter + " ORDER BY dh.DocDate DESC");
+      const invoices = await req.query("SELECT dh.DocNo AS qwRef, dh.DocType AS docType, dh.DocDate AS invoiceDate, dh.SoldToCompany AS customer, dh.SoldToContact AS contact, dh.DocStatus AS status, di.ManufacturerPartNumber AS sku, di.Description AS description, di.QtyTotal AS qty, di.UnitPrice AS unitPrice, di.UnitCost AS unitCost, di.CustomText04 AS serial, di.Manufacturer AS manufacturer, di.Vendor AS vendor, di.CustomText10 AS xeroInvoiceRef FROM DocumentHeaders dh INNER JOIN DocumentItems di ON di.DocID = dh.ID WHERE (dh.DocType = 'INVOICE' OR (dh.DocType = 'ORDER' AND di.CustomText10 IS NOT NULL AND LTRIM(RTRIM(di.CustomText10)) <> '')) AND di.LineType = 1 AND di.CustomText02 LIKE '%Aztek%' " + dateFilter + " ORDER BY dh.DocDate DESC");
       const grouped = {};
       for (const row of invoices.recordset) {
         const key = row.qwRef;
