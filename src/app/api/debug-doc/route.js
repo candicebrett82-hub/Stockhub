@@ -24,7 +24,7 @@ export async function GET(request) {
     const itemsReq = pool.request();
     itemsReq.input("docNoLike2", `%${docNo}%`);
     const itemsResult = await itemsReq.query(
-      "SELECT dh.DocNo, dh.DocType, di.LineType, di.ManufacturerPartNumber AS sku, di.Description, di.QtyTotal, di.UnitPrice, di.UnitCost, di.CustomText04 AS serial, di.CustomText10 AS xeroInvoiceRef, di.Manufacturer, di.Vendor FROM DocumentHeaders dh LEFT JOIN DocumentItems di ON di.DocID = dh.ID WHERE dh.DocNo LIKE @docNoLike2"
+      "SELECT dh.DocNo, dh.DocType, di.LineType, di.ManufacturerPartNumber AS sku, di.Description, di.QtyTotal, di.UnitPrice, di.UnitCost, di.Manufacturer, di.Vendor, di.CustomText01, di.CustomText02, di.CustomText03, di.CustomText04, di.CustomText05, di.CustomText06, di.CustomText07, di.CustomText08, di.CustomText09, di.CustomText10, di.CustomMemo01, di.CustomMemo02, di.CustomMemo03, di.CustomMemo04, di.CustomMemo05 FROM DocumentHeaders dh LEFT JOIN DocumentItems di ON di.DocID = dh.ID WHERE dh.DocNo LIKE @docNoLike2"
     );
 
     return NextResponse.json({
