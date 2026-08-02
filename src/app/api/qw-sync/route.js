@@ -12,14 +12,23 @@ export async function GET(request) {
       const dateFilter = since ? "AND dh.DocDate >= @since" : "";
       const req = pool.request();
       if (since) req.input("since", since);
-      const invoices = await req.query("SELECT dh.DocNo AS qwRef, dh.DocType AS docType, dh.DocDate AS invoiceDate, dh.SoldToCompany AS customer, dh.SoldToContact AS contact, dh.DocStatus AS status, di.ManufacturerPartNumber AS sku, di.Description AS description, di.QtyTotal AS qty, di.UnitPrice AS unitPrice, di.UnitCost AS unitCost, di.CustomText04 AS serial, di.Manufacturer AS manufacturer, di.Vendor AS vendor, di.CustomText10 AS xeroInvoiceRef FROM DocumentHeaders dh INNER JOIN DocumentItems di ON di.DocID = dh.ID WHERE (dh.DocType = 'INVOICE' OR (dh.DocType = 'ORDER' AND di.CustomText10 IS NOT NULL AND LTRIM(RTRIM(di.CustomText10)) <> '')) AND di.LineType = 1 AND di.CustomText02 LIKE '%Aztek%' " + dateFilter + " ORDER BY dh.DocDate DESC");
+      const invoices = await req.query("SELECT dh.DocNo AS qwRef, dh.DocType AS docType, dh.DocDate AS invoiceDate, dh.SoldToCompany AS customer, dh.SoldToContact AS contact, dh.DocStatus AS status, di.ManufacturerPartNumber AS sku, di.Description AS description, di.QtyTotal AS qty, di.UnitPrice AS unitPrice, di.UnitCost AS unitCost, di.CustomText04 AS serial, di.Manufacturer AS manufacturer, di.Vendor AS vendor, di.CustomText10 AS xeroInvoiceRef, di.CustomText02 AS origin FROM DocumentHeaders dh INNER JOIN DocumentItems di ON di.DocID = dh.ID WHERE (dh.DocType = 'INVOICE' OR (dh.DocType = 'ORDER' AND di.CustomText10 IS NOT NULL AND LTRIM(RTRIM(di.CustomText10)) <> '')) AND di.LineType = 1 AND di.CustomText02 LIKE '%Aztek%' " + dateFilter + " ORDER BY dh.DocDate DESC");
       const grouped = {};
       for (const row of invoices.recordset) {
         const key = row.qwRef;
         if (!grouped[key]) {
           grouped[key] = { qwRef: row.qwRef, docType: row.docType || "", customer: row.customer || "", contact: row.contact || "", date: row.invoiceDate, xeroInvoiceRef: (row.xeroInvoiceRef || "").trim(), items: [] };
         }
-        grouped[key].items.push({ sku: row.sku || "", description: row.description || "", qty: row.qty || 1, unitPrice: row.unitPrice || 0, unitCost: row.unitCost || 0, serial: (row.serial || "").trim(), manufacturer: row.manufacturer || "", vendor: row.vendor || "" });
+        // CustomText04 can hold multiple comma-separated serials when QtyTotal > 1.
+        // Split into one item entry per serial so downstream matching (StockHub) works correctly.
+        const serialList = (row.serial || "").split(",").map(s => s.trim()).filter(Boolean);
+        if (serialList.length > 0) {
+          serialList.forEach(sn => {
+            grouped[key].items.push({ sku: row.sku || "", description: row.description || "", qty: 1, unitPrice: row.unitPrice || 0, unitCost: row.unitCost || 0, serial: sn, manufacturer: row.manufacturer || "", vendor: row.vendor || "", origin: (row.origin || "").trim() });
+          });
+        } else {
+          grouped[key].items.push({ sku: row.sku || "", description: row.description || "", qty: row.qty || 1, unitPrice: row.unitPrice || 0, unitCost: row.unitCost || 0, serial: "", manufacturer: row.manufacturer || "", vendor: row.vendor || "", origin: (row.origin || "").trim() });
+        }
       }
       result.invoices = Object.values(grouped);
     }
